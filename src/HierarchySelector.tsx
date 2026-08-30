@@ -40,15 +40,22 @@ export function HierarchySelector(props: HierarchySelectorContainerProps): React
 
     const parents: ObjectItem[] = parentSource.status === ValueStatus.Available ? parentSource.items ?? [] : [];
     const selectedParent = useMemo(() => parents.find(item => item.id === parentId), [parents, parentId]);
+    const selectedParentId = selectedParent?.id;
 
     // Cap how much of the child list is fetched. Without this only the first
     // page is loaded, and "select all" would silently mean "select the first page".
+    // Key only on childLimit: Mendix hands a fresh childSource object every render,
+    // so depending on it would re-run this effect (and re-fetch) on every render.
     useEffect(() => {
         childSource.setLimit(childLimit > 0 ? childLimit : undefined);
-    }, [childSource, childLimit]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [childLimit]);
 
     // The whole trick: re-filter the child data source from the client whenever the
     // parent changes. On a Database or XPath source this is pushed to the server.
+    // Key on the selected parent's id (a stable string) and the association's
+    // filterable flag — NOT on childSource/childParent, whose identities change every
+    // render and would make this effect re-fire and re-filter in a loop.
     useEffect(() => {
         if (!childParent.filterable) {
             console.warn(`${name}: the child to parent reference is not filterable.`);
@@ -57,7 +64,8 @@ export function HierarchySelector(props: HierarchySelectorContainerProps): React
         childSource.setFilter(
             selectedParent ? equals(association(childParent.id), literal(selectedParent)) : undefined
         );
-    }, [name, childSource, childParent, selectedParent]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [name, childParent.filterable, selectedParentId]);
 
     // Drop children belonging to the parent we just left.
     useEffect(() => {
