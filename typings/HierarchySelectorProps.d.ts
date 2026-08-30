@@ -5,9 +5,9 @@
  */
 import {
     ActionValue,
+    AssociationMetaData,
     DynamicValue,
     ListExpressionValue,
-    ListReferenceValue,
     ListValue,
     ReferenceSetValue
 } from "mendix";
@@ -22,7 +22,7 @@ export interface HierarchySelectorContainerProps {
     parentCaption: ListExpressionValue<string>;
     childSource: ListValue;
     childCaption: ListExpressionValue<string>;
-    childParent: ListReferenceValue;
+    childParent: AssociationMetaData;
     childLimit: number;
     selection: ReferenceSetValue;
     clearOnParentChange: boolean;
