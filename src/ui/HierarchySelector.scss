@@ -1,0 +1,124 @@
+.hierarchy-selector {
+    // Themeable. Override these in your Atlas theme rather than the rules below.
+    --hs-gap: 8px;
+    --hs-col: 170px;
+    --hs-radius: var(--border-radius-default, 4px);
+    --hs-border: var(--border-color-default, #ced0d3);
+    --hs-border-hover: var(--brand-primary, #0595db);
+    --hs-selected-bg: var(--brand-primary-light, #e7f5fd);
+    --hs-muted: var(--font-color-detail, #6c7480);
+
+    // The widget can sit in a full-width row or a narrow column, and the
+    // viewport says nothing about which. Size against the widget's own box.
+    container-type: inline-size;
+    width: 100%;
+
+    &__parent {
+        margin-bottom: 12px;
+    }
+
+    &__toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--hs-gap);
+        margin-bottom: 10px;
+    }
+
+    &__search {
+        flex: 1 1 160px;
+        min-width: 0;
+    }
+
+    &__actions {
+        display: flex;
+        gap: var(--hs-gap);
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(var(--hs-col), 1fr));
+        gap: 6px;
+    }
+
+    &__option {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin: 0;
+        padding: 9px 11px;
+        font-weight: 400;
+        border: 1px solid var(--hs-border);
+        border-radius: var(--hs-radius);
+        cursor: pointer;
+
+        input {
+            flex: none;
+            margin: 0;
+        }
+
+        span {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        &:hover {
+            border-color: var(--hs-border-hover);
+        }
+
+        &:focus-within {
+            outline: 2px solid var(--hs-border-hover);
+            outline-offset: 1px;
+        }
+
+        &.is-selected {
+            background: var(--hs-selected-bg);
+            border-color: var(--hs-border-hover);
+        }
+    }
+
+    &__empty {
+        margin: 0;
+        padding: 20px 12px;
+        text-align: center;
+        color: var(--hs-muted);
+        border: 1px dashed var(--hs-border);
+        border-radius: var(--hs-radius);
+    }
+
+    &__footer {
+        display: flex;
+        justify-content: space-between;
+        gap: var(--hs-gap);
+        margin-top: 10px;
+        font-size: 13px;
+        color: var(--hs-muted);
+    }
+
+    &[data-loading="true"] {
+        opacity: 0.6;
+    }
+}
+
+// One column and full-width buttons once the widget's own box gets tight,
+// regardless of screen size.
+@container (max-width: 420px) {
+    .hierarchy-selector__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hierarchy-selector__actions {
+        flex: 1 1 100%;
+
+        .btn {
+            flex: 1;
+        }
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .hierarchy-selector__option {
+        transition: border-color 120ms ease, background-color 120ms ease;
+    }
+}

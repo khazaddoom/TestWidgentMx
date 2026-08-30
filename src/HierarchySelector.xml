@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget id="mycompany.hierarchyselector.HierarchySelector"
+        pluginWidget="true"
+        needsEntityContext="true"
+        offlineCapable="true"
+        supportedPlatform="Web"
+        xmlns="http://www.mendix.com/widget/1.0/"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd">
+    <name>Hierarchy Selector</name>
+    <description>A parent drop-down that filters a child checkbox group. Works for any two related entities.</description>
+    <icon />
+    <properties>
+
+        <propertyGroup caption="Parent level">
+            <property key="parentSource" type="datasource" isList="true" required="true">
+                <caption>Parent list</caption>
+                <description>Objects shown in the drop-down, e.g. Country.</description>
+            </property>
+            <property key="parentCaption" type="textTemplate" dataSource="parentSource" required="true">
+                <caption>Parent caption</caption>
+                <description>Text shown for each parent option.</description>
+            </property>
+        </propertyGroup>
+
+        <propertyGroup caption="Child level">
+            <property key="childSource" type="datasource" isList="true" required="true">
+                <caption>Child list</caption>
+                <description>All child objects, e.g. City. Use a Database or XPath source so filtering runs on the server.</description>
+            </property>
+            <property key="childCaption" type="textTemplate" dataSource="childSource" required="true">
+                <caption>Child caption</caption>
+                <description>Text shown next to each checkbox.</description>
+            </property>
+            <property key="childParent" type="association" dataSource="childSource" required="true">
+                <caption>Child to parent reference</caption>
+                <description>The reference from child to parent, e.g. City_Country. Used to filter the child list.</description>
+                <associationTypes>
+                    <associationType name="Reference" />
+                </associationTypes>
+            </property>
+            <property key="childLimit" type="integer" defaultValue="500">
+                <caption>Maximum children</caption>
+                <description>How many children to load per parent. Raise this if a parent can have more.</description>
+            </property>
+        </propertyGroup>
+
+        <propertyGroup caption="Selection">
+            <property key="selection" type="association" selectableObjects="childSource" required="true">
+                <caption>Selected children</caption>
+                <description>Reference set on the context object that receives the checked children.</description>
+                <associationTypes>
+                    <associationType name="ReferenceSet" />
+                </associationTypes>
+            </property>
+            <property key="clearOnParentChange" type="boolean" defaultValue="true">
+                <caption>Clear selection on parent change</caption>
+                <description>Off keeps children picked under a previous parent.</description>
+            </property>
+            <property key="onChange" type="action" required="false">
+                <caption>On change</caption>
+                <description>Runs after the selection changes.</description>
+            </property>
+        </propertyGroup>
+
+        <propertyGroup caption="Appearance">
+            <property key="parentLabel" type="textTemplate" required="false">
+                <caption>Parent label</caption>
+                <description>Label above the drop-down, e.g. Country.</description>
+                <translations><translation lang="en_US">Parent</translation></translations>
+            </property>
+            <property key="parentPlaceholder" type="textTemplate" required="false">
+                <caption>Parent placeholder</caption>
+                <description>First, empty option in the drop-down.</description>
+                <translations><translation lang="en_US">Choose one</translation></translations>
+            </property>
+            <property key="emptyMessage" type="textTemplate" required="false">
+                <caption>Empty message</caption>
+                <description>Shown before a parent is chosen.</description>
+                <translations><translation lang="en_US">Choose a parent to see its options.</translation></translations>
+            </property>
+            <property key="showSearch" type="boolean" defaultValue="true">
+                <caption>Show search</caption>
+                <description>A text box that filters the loaded children.</description>
+            </property>
+            <property key="showSelectAll" type="boolean" defaultValue="true">
+                <caption>Show select all and clear all</caption>
+                <description />
+            </property>
+            <property key="showCount" type="boolean" defaultValue="true">
+                <caption>Show selection count</caption>
+                <description />
+            </property>
+            <property key="minColumnWidth" type="integer" defaultValue="170">
+                <caption>Minimum column width</caption>
+                <description>In pixels. Columns wrap to fit the space the widget is given.</description>
+            </property>
+        </propertyGroup>
+
+        <propertyGroup caption="General">
+            <systemProperty key="Name" />
+            <systemProperty key="TabIndex" />
+            <systemProperty key="Visibility" />
+            <systemProperty key="Editability" />
+        </propertyGroup>
+
+    </properties>
+</widget>

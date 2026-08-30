@@ -1,0 +1,42 @@
+{
+    "name": "hierarchyselector",
+    "widgetName": "HierarchySelector",
+    "version": "1.0.0",
+    "description": "A parent drop-down that filters a child checkbox group. Works for any two related entities.",
+    "copyright": "© 2026",
+    "license": "Apache-2.0",
+    "engines": {
+        "node": "^22.18.0"
+    },
+    "config": {
+        "projectPath": "./dist/MxTestProject",
+        "mendixHost": "http://localhost:8080",
+        "developmentPort": 3000
+    },
+    "packagePath": "mycompany",
+    "scripts": {
+        "start": "pluggable-widgets-tools start:server",
+        "dev": "pluggable-widgets-tools start:web",
+        "build": "pluggable-widgets-tools build:web",
+        "lint": "pluggable-widgets-tools lint",
+        "lint:fix": "pluggable-widgets-tools lint:fix",
+        "prerelease": "npm run lint",
+        "release": "pluggable-widgets-tools release:web"
+    },
+    "devDependencies": {
+        "@mendix/pluggable-widgets-tools": "^11.13.0",
+        "@types/big.js": "^6.2.2"
+    },
+    "resolutions": {
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "@types/react": "^19.0.0",
+        "@types/react-dom": "^19.0.0"
+    },
+    "overrides": {
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "@types/react": "^19.0.0",
+        "@types/react-dom": "^19.0.0"
+    }
+}
