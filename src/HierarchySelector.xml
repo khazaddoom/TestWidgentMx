@@ -32,7 +32,7 @@
                 <caption>Child caption</caption>
                 <description>Text shown next to each checkbox.</description>
             </property>
-            <property key="childParent" type="association" dataSource="childSource" required="true">
+            <property key="childParent" type="association" dataSource="childSource" isMetaData="true" required="true">
                 <caption>Child to parent reference</caption>
                 <description>The reference from child to parent, e.g. City_Country. Used to filter the child list.</description>
                 <associationTypes>
